@@ -35,7 +35,7 @@ class Kexp
       end
     end
     songs << song
-    songs[0..last-1].each{|s| puts "#{s.artist}, #{s.title}, #{s.album}"}
+    songs[0..last-1].each{|s| puts [s.artist, s.title, s.album].delete_if(&:empty?).join(', ')}
   end
 end
 

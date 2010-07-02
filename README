@@ -1,0 +1,4 @@
+# This script grabs the latest playlist from Seattle radio station KEXP (kexp.org)
+# USAGE:  To use run ./kexp for the last song information from KEXP.org radio station
+# If you want more songs pass in a song number argument like > ./kexp 5   (for last 5 songs)
+# author: John Eberly
