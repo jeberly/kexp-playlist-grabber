@@ -11,12 +11,13 @@ require 'ostruct'
 
 # TODO add output format options and launch options
 class Kexp
-  def self.grab(last)
+  def self.grab(song_count)
     doc = Nokogiri::HTML(open('http://kexp.org/playlist/playlist.aspx'))
     tracks = doc.css('.song')
     meta = 0; songs = []; song = OpenStruct.new
     tracks.css('dd').each_with_index do |track, i|
-      next if i == 0
+      next if i == 0 # skip first song header
+      # New song
       if track.css('dd').any?
         meta = 0
         songs << song
@@ -31,11 +32,11 @@ class Kexp
         when 3 then song.title    = content
         when 4 then song.album    = content
         when 6 then song.released = content
-        when 7 then song.lable    = content
+        when 7 then song.label    = content
       end
     end
     songs << song
-    songs[0..last-1].each{|s| puts [s.artist, s.title, s.album].delete_if(&:empty?).join(', ')}
+    songs[0..song_count-1].each{|s| puts ['Artist: ', s.artist, ' / Title: ', s.title, ' / Album: ', s.album].delete_if(&:empty?).join('')}
   end
 end
 
